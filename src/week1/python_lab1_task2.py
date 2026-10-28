@@ -42,5 +42,5 @@ if __name__ == "__main__":
     # Keep all input() calls inside this block, otherwise the autograder
     # cannot import your file.
     # TODO: read name from input and print greeting
-    name = input("Enter your name: ")
+    name = input("Enter name: ")
     print(greet_user(name))

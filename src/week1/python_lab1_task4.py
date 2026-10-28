@@ -9,7 +9,7 @@ Rules used by all functions:
   minus sign, e.g. "7", "42", "-3".
   Punctuation at the end of a word is ignored, so "5," "10." "8!" count
   as 5, 10 and 8. Use word.rstrip(".,!?;:") to remove it.
-  Decimals ("3.5") and mixed words ("abc123") are NOT numbers.
+  Decimals ("3.5") and mixed words ("abc123") are NOT nums.
 - You do not need the `re` module; .split(), .rstrip() and .isdigit()
   are enough.
 
@@ -22,9 +22,9 @@ Helper functions:
 analyze_text() returns a dict with exactly these keys:
     "characters" : int   (from count_characters)
     "words"      : int   (from count_words)
-    "numbers"    : list  (from extract_numbers)
-    "sum"        : int   (sum of the numbers, 0 if there are none)
-    "average"    : float (average of the numbers, 0.0 if there are none,
+    "nums"    : list  (from extract_numbers)
+    "sum"        : int   (sum of the nums, 0 if there are none)
+    "average"    : float (average of the nums, 0.0 if there are none,
                           NOT rounded)
 
 In the main block: read a line of text, call analyze_text(), and print a
@@ -46,11 +46,11 @@ Examples (these are also used to check your work):
 >>> extract_numbers("Scores: 10, -4 and 7! but not 3.5 or abc123")
 [10, -4, 7]
 >>> result = analyze_text("I have 3 apples and 5 pears")
->>> result["characters"], result["words"], result["numbers"]
+>>> result["characters"], result["words"], result["nums"]
 (21, 7, [3, 5])
 >>> result["sum"], result["average"]
 (8, 4.0)
->>> analyze_text("no numbers here")["average"]
+>>> analyze_text("no nums here")["average"]
 0.0
 """
 
@@ -76,39 +76,39 @@ def count_words(text: str) -> int:
 def extract_numbers(text: str) -> list[int]:
     """Return a list of the integers found in text, in order."""
     # TODO: implement
-    numbers = []
+    nums = []
 
     for word in text.split():
         word = word.rstrip(".,!?;:")
 
         if word.startswith("-"):
             if word[1:].isdigit():
-                numbers.append(int(word))
+                nums.append(int(word))
         elif word.isdigit():
-            numbers.append(int(word))
+            nums.append(int(word))
 
-    return numbers
+    return nums
 
 
 
 def analyze_text(text: str) -> dict:
-    """Return a dict with characters, words, numbers, sum and average."""
+    """Return a dict with characters, words, nums, sum and average."""
     # TODO: call the helper functions and compute sum and average
     characters = count_characters(text)
     words = count_words(text)
-    numbers = extract_numbers(text)
+    nums = extract_numbers(text)
 
-    total = sum(numbers)
+    total = sum(nums)
 
-    if len(numbers) > 0:
-        average = total / len(numbers)
+    if len(nums) > 0:
+        average = total / len(nums)
     else:
         average = 0.0
 
     result = {
         "characters": characters,
         "words": words,
-        "numbers": numbers,
+        "nums": nums,
         "sum": total,
         "average": average
     }
@@ -125,6 +125,6 @@ if __name__ == "__main__":
 
     print(f"Characters (no spaces): {result['characters']}")
     print(f"Words: {result['words']}")
-    print(f"Numbers: {result['numbers']}")
+    print(f"Numbers: {result['nums']}")
     print(f"Sum: {result['sum']}")
     print(f"Average: {result['average']:.2f}")
